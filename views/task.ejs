@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>ToDo App</title>
+  </head>
+
+  <body>
+    <div class="container" style="width: 700px; border: 2px solid red">
+      <div class="row" style="display: flex; justify-content: space-around">
+        <div class="col">
+          <div class="header">
+            <h1 style="color: rgb(255, 88, 88)">Welcome <%= user.name %>!</h1>
+          </div>
+        </div>
+        <div class="col" style="margin-top: 25px">
+          <form action="/auth/logout" method="get">
+            <button
+              type="submit"
+              style="
+                height: 30px;
+                width: 80px;
+                background: rgb(172, 255, 95);
+                border-radius: 5px;
+                font-size: 15px;
+                font-weight: 600;
+              "
+            >
+              Logout
+            </button>
+          </form>
+        </div>
+      </div>
+      <h2 style="color: #363d55; text-align: center">A Simple ToDo List App</h2>
+      <form
+        style="text-align: center; padding: 10px"
+        action="/task/addtask"
+        method="POST"
+      >
+        <input
+          type="text"
+          style="width: 300px; height: 30px; font-size: 15px"
+          id="description"
+          name="description"
+          placeholder="Enter Description"
+          value="<%= typeof description != 'undefined' ? description : '' %>"
+        />
+        <button
+          style="
+            height: 30px;
+            font-size: 15px;
+            font-weight: 400;
+            margin-left: 10px;
+          "
+        >
+          Add Task
+        </button>
+
+        <div class="addedTsk">
+          <h2 style="text-align: center">Added Task</h2>
+          <div class="row" style="display: flex; justify-content: space-around">
+            <div class="listTask">
+              <% for( var i = 0; i < task.length; i++){ %>
+              <li style="font-size: 20px; display: flex">
+                <input
+                  type="checkbox"
+                  id="check_<%= i %>"
+                  name="check"
+                  value="<%= task[i]._id %>"
+                />
+                <%= task[i].description %>
+              </li>
+              <% } %>
+            </div>
+            <div class="btn">
+              <button formaction="/task/removetask" type="submit" id="top">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="completedTask">
+        <h2 style="text-align: center">Completed task</h2>
+        <div
+          class="listTask"
+          style="display: flex; justify-content: space-evenly"
+        >
+          <% for(var i = 0; i < complete.length; i++){ %>
+          <li style="font-size: 20px; display: flex">
+            <input type="checkbox" checked />
+            <%= complete[i].description %>
+          </li>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
